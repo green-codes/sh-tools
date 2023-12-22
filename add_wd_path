@@ -1,0 +1,4 @@
+#!/bin/bash
+# print command to add current path to PATH
+echo \# append $(basename $(pwd)) to current \$PATH
+echo "PATH=\"\$PATH:$(pwd)\""

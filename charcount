@@ -1,0 +1,6 @@
+#!/bin/bash
+if ! [[ -z $1 ]]; then
+  echo -n $1 | wc -m
+else
+  cat "${1:-/dev/stdin}" | wc -m
+fi

@@ -1,0 +1,17 @@
+#!/bin/bash
+# do git pull; if pull failed, do hard reset
+
+if [[ $# > 0 ]]; then cd $1; DIR=$1; else DIR=$(pwd); fi
+echo "Chosen repo: $DIR"
+
+git status 1>/dev/null 2>/dev/null
+if ! [[ $? == 0 ]]; then echo "$DIR: not a repo!"; exit -1; fi
+
+echo "##############################################################"
+echo " WARNING: ALL COMMTITED CHANGES IN LOCAL REPO WILL BE LOST!!! "
+echo "##############################################################"
+read -p "Continue? [y/N]: " VAR
+if ! [[ $VAR =~ [Yy] ]]; then exit; fi
+
+git pull --set-upstream origin master
+if ! [[ $? == 0 ]]; then git reset --hard origin/master; fi

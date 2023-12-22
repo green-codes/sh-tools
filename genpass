@@ -1,0 +1,4 @@
+#!/bin/bash
+read -p "Password strength (bytes) [32]: " LENGTH
+if [[ -z $LENGTH ]]; then LENGTH=32; fi
+cat /dev/random | head -c $LENGTH | basenc --base64

@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ -e /tmp/slowmode_pipe ]; then rm /tmp/slowmode_pipe; fi
+mkfifo /tmp/slowmode_pipe
+( cat /tmp/slowmode_pipe | perl -We 'use
+Time::HiRes;$|++;while(read(STDIN,$c,1)){Time::HiRes::usleep(104);print
+$c;}' )&
+exec &> /tmp/slowmode_pipe
