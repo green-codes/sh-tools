@@ -11,8 +11,11 @@ echo "Chosen repo: $DIR"
 git status 1>/dev/null 2>/dev/null
 if ! [[ $? == 0 ]]; then echo "$DIR: not a repo!"; exit -1; fi
 
-#git pull 1>/dev/null 2>/dev/null
-#if ! [[ $? == 0 ]]; then echo "Pull test failed!"; exit -1; fi
+git pull 1>/dev/null 2>/dev/null
+if ! [[ $? == 0 ]]; then
+    read -p "Pull test failed! Continue? [y/N]: " VAR
+    if ! [[ $VAR =~ [Yy] ]]; then exit; fi
+fi
 
 read -p "Use anonymous author? [y/N]: " VAR
 if [[ $VAR =~ [Yy] ]]; then
