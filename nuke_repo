@@ -13,7 +13,8 @@ if ! [[ $? == 0 ]]; then echo "$DIR: not a repo!"; exit -1; fi
 
 git -C $DIR pull 1>/dev/null 2>/dev/null
 if ! [[ $? == 0 ]]; then
-    read -p "Pull test failed! Continue? [y/N]: " VAR
+    echo "Pull test failed! Consider using `force_pull`"
+    read -p "Continue? [y/N]: " VAR
     if ! [[ $VAR =~ [Yy] ]]; then exit; fi
 fi
 
