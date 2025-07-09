@@ -1,11 +1,11 @@
 #!/bin/bash
 # nuke and recreate the current repo
-# NOTE: executes under current working directory
 
 AUTHOR="Anonymous <anonymous@localhost>"  # protects private email
 SIGNER="1F517725"
 
-if [[ $# -eq 0 ]]; then echo "Usage: $0 <path/to/repo>"; exit 1; fi
+if [[ $# -eq 0 ]]; then echo "Usage: nuke_repo <path/to/repo>"; exit 1; fi
+echo "Chosen repo: $(readlink -f $1)"
 
 git status 1>/dev/null 2>/dev/null
 if ! [[ $? == 0 ]]; then echo "$DIR: not a repo!"; exit -1; fi
