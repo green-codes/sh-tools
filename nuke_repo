@@ -5,8 +5,7 @@
 AUTHOR="Anonymous <anonymous@localhost>"  # protects private email
 SIGNER="1F517725"
 
-if [[ $# > 0 ]]; then cd $1; DIR=$1; else DIR=$(pwd); fi
-echo "Chosen repo: $DIR"
+if [[ $# -eq 0 ]]; then echo "Usage: $0 <path/to/repo>"; exit 1; fi
 
 git status 1>/dev/null 2>/dev/null
 if ! [[ $? == 0 ]]; then echo "$DIR: not a repo!"; exit -1; fi
