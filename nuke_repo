@@ -5,12 +5,13 @@ AUTHOR="Anonymous <anonymous@localhost>"  # protects private email
 SIGNER="1F517725"
 
 if [[ $# -eq 0 ]]; then echo "Usage: nuke_repo <path/to/repo>"; exit 1; fi
-echo "Chosen repo: $(readlink -f $1)"
+DIR=$(readlink -f $1)
+echo "Chosen repo: $DIR"
 
-git status 1>/dev/null 2>/dev/null
+git -C $DIR status 1>/dev/null 2>/dev/null
 if ! [[ $? == 0 ]]; then echo "$DIR: not a repo!"; exit -1; fi
 
-git pull 1>/dev/null 2>/dev/null
+git -C $DIR pull 1>/dev/null 2>/dev/null
 if ! [[ $? == 0 ]]; then
     read -p "Pull test failed! Continue? [y/N]: " VAR
     if ! [[ $VAR =~ [Yy] ]]; then exit; fi
@@ -37,10 +38,10 @@ echo "To avoid data loss, confirm file changes before proceeding."
 read -p "Continue? [y/N]: " VAR
 if ! [[ $VAR =~ [Yy] ]]; then exit; fi
 
-ORIGIN=$(git remote get-url origin)
-rm -rf .git
-git init
-git remote add origin $ORIGIN
-git add --all
-eval "git commit $AUTHOR_STR $SIGN_STR -m 'nuked'"  # git takes expanded var as input??
-git push -f -u origin master
+ORIGIN=$(git -C $DIR remote get-url origin)
+rm -rf $DIR/.git
+git -C $DIR init
+git -C $DIR remote add origin $ORIGIN
+git -C $DIR add --all
+eval "git -C $DIR commit $AUTHOR_STR $SIGN_STR -m 'nuked'"  # git takes expanded var as input??
+git -C $DIR push -f -u origin master
