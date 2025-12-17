@@ -3,9 +3,9 @@
 if [[ $# < 2 ]]; then echo "Usage: $0 <ping_addr> <wg_iface>"; exit -1; fi
 
 echo "$(date) - $1 - $2"
-/sbin/ping -c1 -t1 $1 2>&1
+/sbin/ping -c1 -t1 $1
 if ! [[ $? -eq 0 ]]; then
-  /opt/homebrew/bin/bash /opt/homebrew/bin/wg-quick down $2 2>&1
-  /opt/homebrew/bin/bash /opt/homebrew/bin/wg-quick up $2 2>&1
+  /opt/homebrew/bin/bash /opt/homebrew/bin/wg-quick down $2
+  /opt/homebrew/bin/bash /opt/homebrew/bin/wg-quick up $2
 fi
 echo
