@@ -1,11 +1,14 @@
 #!/bin/bash
 
 if [[ $# < 2 ]]; then echo "Usage: $0 <ping_addr> <wg_iface>"; exit -1; fi
+which brew > /dev/null
+if ! [[ $? -eq 0 ]]; then echo "Homebrew must be installed!"; exit -1; fi
+HOMEBREW_PREFIX=$(brew --prefix)
 
 echo "$(date) - $1 - $2"
 /sbin/ping -c1 -t1 $1
 if ! [[ $? -eq 0 ]]; then
-  /opt/homebrew/bin/bash /opt/homebrew/bin/wg-quick down $2
-  /opt/homebrew/bin/bash /opt/homebrew/bin/wg-quick up $2
+  $HOMEBREW_PREFIX/bin/bash $HOMEBREW_PREFIX/bin/wg-quick down $2
+  $HOMEBREW_PREFIX/bin/bash $HOMEBREW_PREFIX/bin/wg-quick up $2
 fi
 echo
