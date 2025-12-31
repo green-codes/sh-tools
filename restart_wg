@@ -1,6 +1,8 @@
 #!/bin/bash
 
 if [[ $# < 2 ]]; then echo "Usage: $0 <ping_addr> <wg_iface>"; exit -1; fi
+
+PATH=/opt/homebrew/bin:/usr/local/bin:$PATH  # possible homebrew paths
 which brew > /dev/null
 if ! [[ $? -eq 0 ]]; then echo "Homebrew must be installed!"; exit -1; fi
 HOMEBREW_PREFIX=$(brew --prefix)
